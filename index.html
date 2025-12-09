@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intelligent CPU Scheduler</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Intelligent CPU Scheduler</h1>
+            <p>Simulate, Compare, and Optimize CPU Scheduling Algorithms</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <div class="card">
+                    <h2>Add Process</h2>
+                    <form id="process-form">
+                        <div class="form-group">
+                            <label for="arrival-time">Arrival Time</label>
+                            <input type="number" id="arrival-time" min="0" value="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="burst-time">Burst Time</label>
+                            <input type="number" id="burst-time" min="1" value="1" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="priority">Priority (Lower # = Higher)</label>
+                            <input type="number" id="priority" min="1" value="1">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Process</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2>Configuration</h2>
+                    <div class="form-group">
+                        <label for="algorithm-select">Algorithm</label>
+                        <select id="algorithm-select">
+                            <option value="FCFS">First Come First Serve (FCFS)</option>
+                            <option value="SJF">Shortest Job First (Non-Preemptive)</option>
+                            <option value="SRTF">Shortest Remaining Time First (Preemptive SJF)</option>
+                            <option value="RR">Round Robin</option>
+                            <option value="Priority">Priority Scheduling (Non-Preemptive)</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="quantum-group" style="display: none;">
+                        <label for="time-quantum">Time Quantum</label>
+                        <input type="number" id="time-quantum" min="1" value="2">
+                    </div>
+                    <div class="action-buttons">
+                        <button id="simulate-btn" class="btn btn-success">Simulate</button>
+                        <button id="compare-btn" class="btn btn-accent">Compare & Recommend</button>
+                        <button id="reset-btn" class="btn btn-danger">Reset</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="process-list-section">
+                <h2>Process Queue</h2>
+                <div class="table-container">
+                    <table id="process-table">
+                        <thead>
+                            <tr>
+                                <th>Process ID</th>
+                                <th>Arrival Time</th>
+                                <th>Burst Time</th>
+                                <th>Priority</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Processes will be added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="results-section" class="results-section hidden">
+                <div class="section-header">
+                    <h2>Simulation Results</h2>
+                    <span id="algorithm-name" class="badge"></span>
+                </div>
+
+                <div class="card gantt-card">
+                    <h3>Gantt Chart</h3>
+                    <div id="gantt-chart" class="gantt-chart"></div>
+                    <div id="time-ruler" class="time-ruler"></div>
+                </div>
+
+                <div class="stats-container">
+                    <div class="card">
+                        <h3>Metrics</h3>
+                        <table id="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Process ID</th>
+                                    <th>Completion Time</th>
+                                    <th>Turnaround Time</th>
+                                    <th>Waiting Time</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="card summary-card">
+                        <h3>Average Metrics</h3>
+                        <div class="stat-item">
+                            <span class="label">Avg. Turnaround Time</span>
+                            <span class="value" id="avg-tat">0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">Avg. Waiting Time</span>
+                            <span class="value" id="avg-wt">0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="label">CPU Utilization</span>
+                            <span class="value" id="cpu-util">100%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="comparison-section" class="comparison-section hidden">
+                <h2>Algorithm Comparison</h2>
+                <div id="recommendation-banner" class="recommendation-banner"></div>
+                <div class="table-container">
+                    <table id="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Algorithm</th>
+                                <th>Avg. Turnaround Time</th>
+                                <th>Avg. Waiting Time</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
